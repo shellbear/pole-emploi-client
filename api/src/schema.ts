@@ -1,36 +1,36 @@
-import { nexusPrismaPlugin } from 'nexus-prisma'
-import { makeSchema, objectType } from 'nexus'
+import { nexusPrismaPlugin } from 'nexus-prisma';
+import { makeSchema, objectType } from 'nexus';
 
 const User = objectType({
   name: 'User',
   definition(t) {
-    t.model.id()
-    t.model.email()
+    t.model.id();
+    t.model.email();
   },
-})
+});
 
 const Query = objectType({
   name: 'Query',
   definition(t) {
     t.crud.user({
-      alias: 'user'
-    })
+      alias: 'user',
+    });
   },
-})
+});
 
 const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
-    t.crud.createOneUser({ alias: 'signupUser' })
+    t.crud.createOneUser({ alias: 'signupUser' });
   },
-})
+});
 
-export const schema = makeSchema({
+const schema = makeSchema({
   types: [Query, Mutation, User],
   plugins: [nexusPrismaPlugin()],
   outputs: {
-    schema: __dirname + '/generated/schema.graphql',
-    typegen: __dirname + '/generated/nexus.ts',
+    schema: `${__dirname}/generated/schema.graphql`,
+    typegen: `${__dirname}/generated/nexus.ts`,
   },
   typegenAutoConfig: {
     contextType: 'Context.Context',
@@ -45,4 +45,6 @@ export const schema = makeSchema({
       },
     ],
   },
-})
+});
+
+export default schema;
