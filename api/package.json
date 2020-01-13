@@ -15,13 +15,16 @@
   },
   "dependencies": {
     "@prisma/photon": "2.0.0-preview019",
+    "axios": "^0.19.1",
     "graphql": "14.5.8",
     "graphql-yoga": "1.18.3",
     "nexus": "0.12.0-rc.5",
-    "nexus-prisma": "0.6.1"
+    "nexus-prisma": "0.6.1",
+    "querystring": "^0.2.0"
   },
   "devDependencies": {
     "@prisma/sdk": "0.0.133",
+    "@types/axios": "^0.14.0",
     "@types/node": "12.12.24",
     "@types/ws": "6.0.4",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
