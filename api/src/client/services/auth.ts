@@ -1,4 +1,4 @@
-import { AxiosPromise } from 'axios';
+import axios from 'axios';
 import { stringify } from 'querystring';
 
 import Service from './service';
@@ -11,7 +11,7 @@ export interface ConnectResponse {
 }
 
 class Auth extends Service {
-  connect(realm: string): AxiosPromise<ConnectResponse> {
+  async connect(realm = '/partenaire'): Promise<ConnectResponse> {
     const data = {
       grant_type: this.client.grantType,
       client_id: this.client.clientID,
@@ -19,11 +19,13 @@ class Auth extends Service {
       scope: this.client.scopes.join(' '),
     };
 
-    return this.client.http.post(`/connexion/oauth2/access_token?realm=${realm}`, stringify(data), {
+    const resp = await axios.post(`https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=${realm}`, stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
+
+    return resp.data;
   }
 }
 
